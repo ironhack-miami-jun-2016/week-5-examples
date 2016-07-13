@@ -13,7 +13,27 @@ $(document).ready(function () {
 function createCharacter (event) {
   event.preventDefault();
 
-  alert("FORM SUBMITTED");
+  // $('[name="name"]')
+  // $('[name="occupation"]')
+  // $('[name="weapon"]')
+  var name = $(".js-name-input").val();
+  var occupation = $(".js-occupation-input").val();
+  var weapon = $(".js-weapon-input").val();
+
+
+  var listContent = `
+    <li>
+      <h3> ${name} </h3>
+
+      <ul>
+        <li> Occupation: ${occupation} </li>
+        <li> Weapon: ${weapon} </li>
+      </ul>
+    </li>
+  `;
+
+  $(".js-characters-list").append(listContent);
+
 }
 
 
