@@ -13,28 +13,45 @@ $(document).ready(function () {
 function createCharacter (event) {
   event.preventDefault();
 
-  // $('[name="name"]')
-  // $('[name="occupation"]')
-  // $('[name="weapon"]')
-  var name = $(".js-name-input").val();
-  var occupation = $(".js-occupation-input").val();
-  var weapon = $(".js-weapon-input").val();
+  var newName = $(".js-name-input").val();
+  var newOccupation = $(".js-occupation-input").val();
+  var newWeapon = $(".js-weapon-input").val();
 
+  var newCharacter = {
+    name: newName,
+    occupation: newOccupation,
+    weapon: newWeapon
+  };
+
+  // POST  https://ironhack-characters.herokuapp.com/characters
+  $.ajax({
+    type: "POST",
+    url: "https://ironhack-characters.herokuapp.com/characters",
+    data: newCharacter,
+    success: showNewCharacter,
+    error: handleError
+  });
+}
+
+function showNewCharacter () {
+  var newName = $(".js-name-input").val();
+  var newOccupation = $(".js-occupation-input").val();
+  var newWeapon = $(".js-weapon-input").val();
 
   var listContent = `
     <li>
-      <h3> ${name} </h3>
+      <h3> ${newName} </h3>
 
       <ul>
-        <li> Occupation: ${occupation} </li>
-        <li> Weapon: ${weapon} </li>
+        <li> Occupation: ${newOccupation} </li>
+        <li> Weapon: ${newWeapon} </li>
       </ul>
     </li>
   `;
 
   $(".js-characters-list").append(listContent);
-
 }
+
 
 
 function fetchCharacters () {
