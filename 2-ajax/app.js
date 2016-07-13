@@ -38,37 +38,40 @@ function createCharacter (event) {
 
 
 function fetchCharacters () {
-  var listContent = `
-    <li>
-      <h3> Yoda </h3>
-
-      <ul>
-        <li> Occupation: Grandmaster </li>
-        <li> Weapon: Talking backwards </li>
-      </ul>
-    </li>
-
-    <li>
-      <h3> Obi-Wan Kenobi </h3>
-
-      <ul>
-        <li> Occupation: Liar </li>
-        <li> Weapon: Lies </li>
-      </ul>
-    </li>
-
-    <li>
-      <h3> C-3PO </h3>
-
-      <ul>
-        <li> Occupation: Protocol Droid </li>
-        <li> Weapon: Falling Down </li>
-      </ul>
-    </li>
-  `;
-
-  // $(".js-characters-list").empty();
-  // $(".js-characters-list").append(html);
-
-  $(".js-characters-list").html(listContent);
+  $.ajax({
+    type: "GET",
+    url: "https://ironhack-characters.herokuapp.com/characters",
+    success: showCharacters,
+    error: handleError
+  });
 }
+
+
+function showCharacters (response) {
+  var charactersArray = response;
+
+  $(".js-characters-list").empty();
+
+  charactersArray.forEach(function (theCharacter) {
+    var listContent = `
+      <li>
+        <h3> ${theCharacter.name} </h3>
+
+        <ul>
+          <li> Occupation: ${theCharacter.occupation} </li>
+          <li> Weapon: ${theCharacter.weapon} </li>
+        </ul>
+      </li>
+    `;
+
+    $(".js-characters-list").append(listContent);
+  });
+}
+
+function handleError (error) {
+  console.log("Oh no! There was an error.");
+  console.log(error.responseText);
+}
+
+
+
