@@ -2,10 +2,21 @@
 
 $(document).ready(function () {
 
-  $(".js-character-form").on("submit", function (event) {
-    event.preventDefault();
+  $(".js-character-form").on("submit", createCharacter);
 
-    alert("FORM SUBMITTED");
-  });
+  $(".js-fetch-characters").on("click", fetchCharacters);
 
 });
+
+
+
+function createCharacter (event) {
+  event.preventDefault();
+
+  alert("FORM SUBMITTED");
+}
+
+
+function fetchCharacters () {
+  alert("FETCH CHARACTERS");
+}
