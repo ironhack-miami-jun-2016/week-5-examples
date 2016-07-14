@@ -5,7 +5,9 @@ $(document).ready(function () {
   if ("geolocation" in navigator) {
     console.log("Browser has geolocation!");
 
-    navigator.geolocation.getCurrentPosition( showPosition, handleError );
+    var options = { timeout: 4000 };
+
+    navigator.geolocation.getCurrentPosition( showPosition, handleError, options );
   }
 
   else {
