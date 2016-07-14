@@ -2,6 +2,16 @@ $(document).ready(function() {
 
   $(".js-artist-form").on("submit", fetchSpotifyArtists);
 
+
+  //    EVENT DELEGATION!
+  //    -----------------
+  //
+  //  This tag is already on the page
+  //        |
+  $(".js-artist-list").on("click", ".js-artist-albums", fetchSpotifyAlbums);
+  //                                         |
+  //                      These buttons will be appended to the DOM later
+
 });
 
 
@@ -24,6 +34,8 @@ function fetchSpotifyArtists (event) {
 
 function showArtists(artistResponse){
   $(".js-artist-list").empty();
+  $(".js-albums-list").empty();
+
 
   artistResponse.artists.items.forEach(function (artist) {
     createArtistHtml(artist);
@@ -56,4 +68,44 @@ function createArtistHtml (artist) {
 function handleError (error) {
   console.log("You dun goofed");
   console.log(error.responseText);
+}
+
+
+function fetchSpotifyAlbums (event) {
+  var btn = event.currentTarget;
+
+  // data-blah="..."
+  var artistId = $(btn).data("blah");
+
+  $.ajax({
+    type: "GET",
+    url: `https://api.spotify.com/v1/artists/${artistId}/albums`,
+    success: displayAlbums,
+    error: handleError
+  });
+}
+
+
+function displayAlbums (data) {
+  $(".js-albums-list").empty();
+
+  data.items.forEach(function (album) {
+    var image;
+
+    if (album.images.length > 0){
+      image = album.images[0].url;
+    } else {
+      image = "http://static.gigwise.com/artists/03122015_cat_music_science.jpg";
+    }
+
+    var html = `
+      <li>
+        <h4> ${album.name} </h4>
+        <img class="artist-image" src="${image}">
+      </li>
+    `;
+
+    $(".js-albums-list").append(html);
+  });
+
 }
