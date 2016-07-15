@@ -40,6 +40,9 @@ PokemonApp.showPokemonModal = function (response) {
     spriteComponent.render();
   }
 
+  var descriptionComponent = new PokemonApp.Description(response.descriptions);
+  descriptionComponent.render();
+
   $(".js-pkmn-name").text(response.name);
   $(".js-pkmn-number").text(response.pkdx_id);
   $(".js-pkmn-height").text(response.height);
