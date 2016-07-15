@@ -12,31 +12,7 @@ PokemonApp.Pokemon = class {
     $.ajax({
       type: "GET",
       url: `/api/pokemon/${this.id}`,
-      success: function (response) {
-        console.log("Pokemon info:");
-        console.log(response);
-
-        $(".js-pkmn-name").text(response.name);
-        $(".js-pkmn-number").text(response.pkdx_id);
-        $(".js-pkmn-height").text(response.height);
-        $(".js-pkmn-weight").text(response.weight);
-        $(".js-pkmn-hp").text(response.hp);
-        $(".js-pkmn-attack").text(response.attack);
-        $(".js-pkmn-defense").text(response.defense);
-        $(".js-pkmn-sp-attack").text(response.sp_atk);
-        $(".js-pkmn-sp-defense").text(response.sp_def);
-        $(".js-pkmn-speed").text(response.speed);
-
-        $(".js-types-list").empty();
-
-        response.types.forEach(function (theType) {
-          var typeHtml = `<li> ${theType.name} </li>`;
-
-          $(".js-types-list").append(typeHtml);
-        });
-
-        $(".js-pokemon-modal").modal("show");
-      },
+      success: PokemonApp.showPokemonModal,
       error: PokemonApp.handleError
     });
   }
@@ -51,6 +27,33 @@ PokemonApp.idFromUri = function (pokemonUri) {
                                             // length = 5
   var secondLast = uriSegments.length - 2;  // secondLast = 3
   return uriSegments[secondLast];
+};
+
+
+PokemonApp.showPokemonModal = function (response) {
+  console.log("Pokemon info:");
+  console.log(response);
+
+  $(".js-pkmn-name").text(response.name);
+  $(".js-pkmn-number").text(response.pkdx_id);
+  $(".js-pkmn-height").text(response.height);
+  $(".js-pkmn-weight").text(response.weight);
+  $(".js-pkmn-hp").text(response.hp);
+  $(".js-pkmn-attack").text(response.attack);
+  $(".js-pkmn-defense").text(response.defense);
+  $(".js-pkmn-sp-attack").text(response.sp_atk);
+  $(".js-pkmn-sp-defense").text(response.sp_def);
+  $(".js-pkmn-speed").text(response.speed);
+
+  $(".js-types-list").empty();
+
+  response.types.forEach(function (theType) {
+    var typeHtml = `<li> ${theType.name} </li>`;
+
+    $(".js-types-list").append(typeHtml);
+  });
+
+  $(".js-pokemon-modal").modal("show");
 };
 
 
