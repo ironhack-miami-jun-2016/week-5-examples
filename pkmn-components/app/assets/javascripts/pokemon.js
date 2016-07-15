@@ -17,7 +17,7 @@ PokemonApp.Pokemon = class {
     });
   }
 
-}
+};
 
 
 PokemonApp.idFromUri = function (pokemonUri) {
@@ -33,6 +33,12 @@ PokemonApp.idFromUri = function (pokemonUri) {
 PokemonApp.showPokemonModal = function (response) {
   console.log("Pokemon info:");
   console.log(response);
+
+  if (response.sprites.length > 0) {
+    var spriteUri = response.sprites[0].resource_uri;
+    var spriteComponent = new PokemonApp.Sprite(spriteUri);
+    spriteComponent.render();
+  }
 
   $(".js-pkmn-name").text(response.name);
   $(".js-pkmn-number").text(response.pkdx_id);
