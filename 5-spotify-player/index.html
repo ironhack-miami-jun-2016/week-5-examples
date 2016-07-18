@@ -2,9 +2,19 @@
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<script   src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
+	<script src="app.js"></script>
 </head>
 <body>
+
 	<div class="widget">
+		<form class="js-search-form">
+			<label class="search-label">Search for a song</label>
+			<input class="js-search-term" type="search" name="track-search" placeholder="e.g. 'Twist and Shout'">
+			<button> Search </button>
+		</form>
+
 		<div class="header">
 		<!-- Try adding/removing these classes: -->
 		<!-- disabled -->
@@ -21,7 +31,7 @@
 		</div>
 		</div>
 		<div class="cover">
-		<img src="https://i.scdn.co/image/04da6dfc1f5f45fdeba938a0cc71cf372524fd43">
+			<img src="https://i.scdn.co/image/04da6dfc1f5f45fdeba938a0cc71cf372524fd43">
 		</div>
 
 		<audio src="https://p.scdn.co/mp3-preview/8e9c5ffdc38e91659bfe8b6bd44650dfc25a3d31"></audio>

@@ -6,6 +6,14 @@
   display: block;
 }
 
+.search-label {
+  display: block;
+}
+
+.search-label:after {
+  content: ":";
+}
+
 .header {
   height: 78px;
   background-color: #ccc;
