@@ -34,6 +34,9 @@ PokemonApp.showPokemonModal = function (response) {
   console.log("Pokemon info:");
   console.log(response);
 
+  // Save evolutions data for the Evolution component
+  PokemonApp.evolutionsArray = response.evolutions;
+
   if (response.sprites.length > 0) {
     var spriteUri = response.sprites[0].resource_uri;
     var spriteComponent = new PokemonApp.Sprite(spriteUri);
