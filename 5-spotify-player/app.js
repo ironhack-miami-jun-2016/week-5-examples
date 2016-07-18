@@ -1,5 +1,8 @@
 $(document).ready(function () {
   $(".js-search-form").on("submit", searchSpotify);
+  $(".js-play-btn").on("click", playOrPause);
+
+  $(".js-play-btn").removeClass("disabled");
 });
 
 
@@ -39,4 +42,19 @@ function updatePlayer (response) {
   $(".title").text( firstResult.name );
   $(".author").text( firstResult.artists[0].name );
   $(".cover img").prop( "src", imageUrl );
+  $(".js-audio-tag").prop( "src", firstResult.preview_url );
+}
+
+
+function playOrPause () {
+  $(".js-play-btn").toggleClass("playing");
+
+  if ( $(".js-play-btn").hasClass("playing") ) {
+    $(".js-audio-tag").trigger("play");
+  }
+
+  else {
+    $(".js-audio-tag").trigger("pause");
+  }
+
 }
