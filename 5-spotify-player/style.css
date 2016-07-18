@@ -161,3 +161,9 @@ progress::-webkit-progress-value {
 progress::-moz-progress-bar {
   background-color: #45a800;
 }
+
+
+.artist-image {
+  display: block;
+  width: 100%;
+}

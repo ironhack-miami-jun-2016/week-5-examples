@@ -1,7 +1,12 @@
 $(document).ready(function () {
   $(".js-search-form").on("submit", searchSpotify);
+
+  // Playback
   $(".js-play-btn").on("click", playOrPause);
   $(".js-audio-tag").on("timeupdate", updateProgressBar);
+
+  // Artist Modal
+  $(".js-show-artist").on("click", fetchArtistInfo);
 
   $(".js-play-btn").removeClass("disabled");
 });
@@ -44,6 +49,8 @@ function updatePlayer (response) {
   $(".author").text( firstResult.artists[0].name );
   $(".cover img").prop( "src", imageUrl );
   $(".js-audio-tag").prop( "src", firstResult.preview_url );
+
+  $(".js-show-artist").data( "artist-url", firstResult.artists[0].href );
 }
 
 
@@ -65,3 +72,43 @@ function updateProgressBar () {
   var currentTime = $(".js-audio-tag").prop("currentTime");
   $(".js-progress").prop( "value", currentTime );
 }
+
+
+function fetchArtistInfo () {
+  var artistUrl = $(".js-show-artist").data( "artist-url" );
+
+  $.ajax({
+    type: "GET",
+    url: artistUrl,
+    success: showArtistModal,
+    error: handleError
+  });
+}
+
+function showArtistModal (response) {
+  console.log("Artist details response");
+  console.log(response);
+
+  if (response.images.length > 0) {
+    var imageUrl = response.images[0].url;
+  }
+  else {
+    var imageUrl = "https://media.giphy.com/media/3o72FcL4VW0cmNfwvC/giphy.gif";
+  }
+
+  $(".js-artist-name").text( response.name );
+  $(".js-artist-photo").prop( "src", imageUrl );
+  $(".js-artist-followers").text( response.followers.total );
+  $(".js-artist-popularity").text( response.popularity );
+
+  $(".js-artist-genres").empty();
+
+  response.genres.forEach(function (theGenre) {
+    var html = `<li> ${theGenre} </li>`;
+
+    $(".js-artist-genres").append(html);
+  });
+
+  $(".js-modal").modal("show");
+}
+
