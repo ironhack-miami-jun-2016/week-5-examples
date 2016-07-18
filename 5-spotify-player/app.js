@@ -1,6 +1,7 @@
 $(document).ready(function () {
   $(".js-search-form").on("submit", searchSpotify);
   $(".js-play-btn").on("click", playOrPause);
+  $(".js-audio-tag").on("timeupdate", updateProgressBar);
 
   $(".js-play-btn").removeClass("disabled");
 });
@@ -57,4 +58,10 @@ function playOrPause () {
     $(".js-audio-tag").trigger("pause");
   }
 
+}
+
+
+function updateProgressBar () {
+  var currentTime = $(".js-audio-tag").prop("currentTime");
+  $(".js-progress").prop( "value", currentTime );
 }
